@@ -26,5 +26,8 @@ package com.sdh
 		public function deviceInfo(temp:String):void{
 			context.call("deviceinfo",temp);
 		}
+		public function backPress(temp:String):Boolean{
+			return context.call("backpress",temp).BackKeyPressEnd;
+		}
 	}
 }
