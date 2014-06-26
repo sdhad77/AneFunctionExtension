@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build ANE" default="all">
+	<property name="name" value="AneFunction"/>
+	<property name="swcname" value="AneFunctionExtension"/>
+	<property name="SDK_PATH" value="C:\Program Files\Adobe\Adobe Flash Builder 4.7 (64 Bit)\eclipse\plugins\com.adobe.flash.compiler_4.7.0.349722\AIRSDK"></property>
+	<property name="ADT" value="${SDK_PATH}/lib/adt.jar"></property>
+	<property name="androidtarget" value="AneFunction.jar" />
+    
+	<target name="all" depends="swc,jars,package" description="Full build of extension"/>
+	
+	<target name="swc" description="Build SWC library">
+		<mkdir dir="./Result"/>
+		<mkdir dir="../temp/swc"/>
+		<copy file="${swcname}.swc" todir="../temp/swc"/>
+		<unzip src="../temp/swc/${swcname}.swc" dest="../temp/swc/content" overwrite="true"/>
+		<copy file="../temp/swc/content/library.swf" todir="./Android" overwrite="true"/>
+	    <copy file="../temp/swc/content/library.swf" todir="./Result" overwrite="true"/>
+		<delete dir="../temp"/>
+	</target>
+	
+	<target name="jars" description="extract jars for 3rd party or new apis">
+		<mkdir dir="../output_jars"/>
+		<unzip dest="../output_jars">
+			<fileset dir="./">
+			    <include name="**/*.jar"/>
+			</fileset>
+		</unzip>
+		<jar destfile="./Result/${androidtarget}" basedir="../output_jars"/>
+		<delete dir="../output_jars"/>
+	</target>
+	
+	<target name="package" description="Create the extension package">
+		<java jar="${ADT}" dir="./" fork="true" output="build.log">
+            <arg value="-package"/>
+            <arg value="-target"/>
+			<arg value="ane"/>
+			<arg value="${name}.ane"/>
+            <arg value="extension.xml"></arg>
+			<arg line="-swc ${swcname}.swc"/>
+        	<arg line="-platform Android-ARM -platformoptions platform.xml ane-res -C Result ."/>
+        </java>
+		<delete file="./library.swf"/>
+		<delete dir="./Result"/>
+    </target> 
+</project>

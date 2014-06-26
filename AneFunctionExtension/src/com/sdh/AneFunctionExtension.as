@@ -23,14 +23,17 @@ package com.sdh
 		public function vibration(duration:Number):void{
 			context.call("vibration",duration);
 		}
-		public function deviceInfo(message:String):String{
-			return context.call("deviceinfo",message).Info;
-		}
 		public function backPress(temp:String):Boolean{
 			return context.call("backpress",temp).BackKeyPressEnd;
 		}
-		public function mediaStoreImageLoadFunction(message:String):Object{
-			return context.call("mediastoreimageload",message);
-		}
+        public function login(appID:String):void{
+            context.call("login",appID);
+        }
+        public function logout(message:String):void{
+            context.call("logout",message);
+        }
+        public function statusupdate(message:String):void{
+            context.call("statusupdate",message);
+        }
 	}
 }
