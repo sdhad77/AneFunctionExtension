@@ -1,0 +1,13 @@
+<extension xmlns="http://ns.adobe.com/air/extension/4.0">
+	<id>com.sdh.AneFunctionExtension</id>
+	<versionNumber>1.0.0</versionNumber>
+	<platforms>
+		<platform name="Android-ARM">
+		    <applicationDeployment>
+		        <nativeLibrary>AneFunction.jar</nativeLibrary>
+		        <initializer>com.sdh.anefunction.AneFunctionExtension</initializer>
+		        <finalizer>com.sdh.anefunction.AneFunctionExtension</finalizer>
+		    </applicationDeployment>
+		</platform>
+	 </platforms>
+</extension>
